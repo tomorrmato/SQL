@@ -1,24 +1,4 @@
 
--- Query 1
-
-with T1 as
-	(select EmpProject.ProjId, EmpProject.EmpId, University.UnivId
-	from EmpProject, Graduate, University
-	where EmpProject.EmpId = Graduate.EmpId and Graduate.UnivId = University.UnivId
-		),
-	T2 as 
-	(select EmpProject.ProjId, EmpProject.EmpId, University.UnivId
-	from EmpProject, Graduate, University
-	where EmpProject.EmpId = Graduate.EmpId and Graduate.UnivId = University.UnivId
-		)
-select Project.ProjName
-from Project
-where Project.ProjId NOT in(
-	select distinct(T1.ProjId)
-	from T1, T2
-	where T1.EmpId <> T2.EmpId and T1.UnivId <> T2.UnivId and T1.ProjId = T2.ProjId 
-);
-
 -- Query 2
 
 with R1 as
